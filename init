@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+if [ ! -f .env ]; then
+    cp .env.example .env
+    echo '请先编辑 .env 文件，修改数据库相关信息！'
+    exit 1;
+fi
+
+composer install
+
+composer dump-autoload
+
+php artisan app:key --force
+
+php artisan jwt:secret --force
+
+php artisan migrate
+
+php artisan db:seed
