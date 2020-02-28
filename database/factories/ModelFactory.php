@@ -2,8 +2,6 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
-use Faker\Generator as Faker;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +14,28 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+function randDate()
+{
+    return \Carbon\Carbon::now()
+        ->subDays(rand(1, 100))
+        ->subHours(rand(1, 23))
+        ->subMinutes(rand(1, 60));
+}
+
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+    static $createdAt;
+    static $password;
+
+
     return [
+        'username' => $faker->username,
         'name' => $faker->name,
-        'email' => $faker->email,
+        'phone' => $faker->phoneNumber,
+        'parent_id' => 0,
+        'user_level_id' => 1,
+        'password' => $password ?: $password = app('hash')->make(123456),
+        'created_at' => $createdAt ?: $createAt = randDate(),
+        'updated_at' => $createdAt ?: $createdAt = randDate(),
     ];
 });
+

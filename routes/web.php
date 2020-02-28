@@ -11,6 +11,14 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', [], function ($api) {
+    $api->get('/', function () {
+        return '欢迎您！';
+    });
+
+    $api->get('/404', function () {
+        return '当前接口不存在！';
+    });
 });
