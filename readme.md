@@ -13,7 +13,7 @@
 # 复制
 cp .env.example .env
 
-# 编辑数据库相关配置
+# 编辑数据库和域名相关配置
 vi .env
 
 sh init
